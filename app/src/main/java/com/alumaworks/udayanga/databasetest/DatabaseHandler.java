@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,6 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Create tables again
         onCreate(db);
     }
+
     // Adding new contact
     public void addContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -67,9 +69,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Contact getContact(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
-                        KEY_NAME, KEY_PH_NO }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_CONTACTS, new String[]{KEY_ID,
+                        KEY_NAME, KEY_PH_NO}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -80,28 +82,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All Contacts
-    public List<Contact> getAllContacts() {
-        List<Contact> contactList = new ArrayList<Contact>();
+    public ArrayList<HashMap<String, String>> getAllContacts() {
+//        List<Contact> contactList = new ArrayList<Contact>();
         // Select All Query
+        ArrayList<HashMap<String, String>> contactList;
+        contactList = new ArrayList<HashMap<String, String>>();
+
         String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Contact contact = new Contact();
-                contact.setID(Integer.parseInt(cursor.getString(0)));
-                contact.setName(cursor.getString(1));
-                contact.setPhoneNumber(cursor.getString(2));
-                // Adding contact to list
-                contactList.add(contact);
-            } while (cursor.moveToNext());
-        }
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("name", cursor.getString(0));
+                map.put("phone_number", cursor.getString(1));
+                contactList.add(map);
 
-        // return contact list
+            } while (cursor.moveToNext());
+
+        }
         return contactList;
+
+
+//        // looping through all rows and adding to list
+//        if (cursor.moveToFirst()) {
+//            do {
+//                Contact contact = new Contact();
+//                contact.setID(Integer.parseInt(cursor.getString(0)));
+//                contact.setName(cursor.getString(1));
+//                contact.setPhoneNumber(cursor.getString(2));
+//                // Adding contact to list
+//                contactList.add(contact);
+//            } while (cursor.moveToNext());
+//        }
+//
+//        // return contact list
+//        return contactList;
     }
 
     // Getting contacts Count
@@ -114,6 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return count
         return cursor.getCount();
     }
+
     // Updating single contact
     public int updateContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -124,14 +143,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // updating row
         return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(contact.getID()) });
+                new String[]{String.valueOf(contact.getID())});
     }
 
     // Deleting single contact
     public void deleteContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
-                new String[] { String.valueOf(contact.getID()) });
+                new String[]{String.valueOf(contact.getID())});
         db.close();
     }
 }
