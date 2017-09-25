@@ -3,16 +3,10 @@ package com.alumaworks.udayanga.databasetest;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -51,7 +45,15 @@ public class MainActivity extends ActionBarActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(MainActivity.this, JsonListView.class);
+                Intent intent= new Intent(MainActivity.this, VIewContact.class);
+                startActivity(intent);
+            }
+        });
+        Button buttonAdd= (Button)findViewById(R.id.buttonAdd);
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this, AddContact.class);
                 startActivity(intent);
             }
         });

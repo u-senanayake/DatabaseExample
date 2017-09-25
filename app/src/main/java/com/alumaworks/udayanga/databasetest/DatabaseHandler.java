@@ -96,8 +96,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> map = new HashMap<String, String>();
-                map.put("name", cursor.getString(0));
-                map.put("phone_number", cursor.getString(1));
+                map.put("name", cursor.getString(1));
+                map.put("phone_number", cursor.getString(2));
                 contactList.add(map);
 
             } while (cursor.moveToNext());

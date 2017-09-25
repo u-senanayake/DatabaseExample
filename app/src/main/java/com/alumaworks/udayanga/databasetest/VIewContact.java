@@ -8,16 +8,15 @@ import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class JsonListView extends AppCompatActivity {
+public class VIewContact extends AppCompatActivity {
 
     DatabaseHandler handler = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_json_list_view);
+        setContentView(R.layout.activity_view_contact);
 
         ArrayList<HashMap<String, String>> contactList = handler.getAllContacts();
         if(contactList.size()!=0){

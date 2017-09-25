@@ -21,18 +21,20 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="27dp"
         android:layout_marginStart="27dp"
-        android:orientation="horizontal">
-        <!--<ListView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="301dp"-->
-            <!--android:id="@+id/list">-->
-        <!--</ListView>-->
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next" />
+            android:text="View" />
+
     </LinearLayout>
 
 </RelativeLayout>
